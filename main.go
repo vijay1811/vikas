@@ -3,7 +3,9 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
 )
@@ -59,5 +61,12 @@ func main() {
 		rw.Write(response)
 		//	}
 	})
-	http.ListenAndServe(":8080", nil)
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	log.Printf("listening on port %v\n", port)
+
+	http.ListenAndServe(":"+port, nil)
+
 }
